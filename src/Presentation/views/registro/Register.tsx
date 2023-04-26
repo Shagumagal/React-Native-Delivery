@@ -5,8 +5,11 @@ import { View, Image, Text, TextInput, ToastAndroid, StyleSheet, Touchable, Touc
 import { RoundedButton } from '../../../Presentation/components/RoundedButton';
 import { StackNavigationProp } from '@react-navigation/stack'
 import { RootStackParamList } from '../../../../App';
-
+import useViewModel from './ViewModel'
+import { CustomTextInput1 } from '../../components/CustomTextInput1';
 export const RegisterScreen = () => {
+  //traemos los campos del viewModel
+  const{name,lastname,direction,email,phone,password,confirmPassword,onChange,register}=useViewModel();
   return (
     //con la etiqueta view se crea una columna 
     //el text input no tiene hijos
@@ -24,74 +27,76 @@ export const RegisterScreen = () => {
         <Text style={styles.logoText}>Selecciona tu imagen de perfil</Text>
       </View>
       {/* Seccion formulario de inicio de sesion*/}
+
       <View style={styles.form}>
+         
         <Text style={styles.formText}>Registrarse</Text>
-        <View style={styles.formInput}>
-          <Image
-            style={styles.formIcon}
-            source={require('../../../../assets/user.png')} />
-          <TextInput
-            style={styles.formtextInput}
-            placeholder='Nombres'
-            keyboardType='default'
-          />
-        </View>
-        <View style={styles.formInput}>
-          <Image
-            style={styles.formIcon}
-            source={require('../../../../assets/my_user.png')} />
-          <TextInput
-            style={styles.formtextInput}
-            placeholder='Apellidos'
-            keyboardType='default'
-          />
-        </View>
-        <View style={styles.formInput}>
-          <Image
-            style={styles.formIcon}
-            source={require('../../../../assets/direccion.png')} />
-          <TextInput
-            style={styles.formtextInput}
-            placeholder='Direccion'
-            keyboardType='default'
-          />
-        </View>
+        {/* Aca todos los text inputs*/}
+        <CustomTextInput1 
+       placeholder='Nombres'
+       keyboardType='default'
+       image={require('../../../../assets/user.png')}
+       property='name'
+       onChangeText={onChange}
+       value={name}
+      />
+
+<CustomTextInput1 
+       placeholder='Apellidos'
+       keyboardType='default'
+       image={require('../../../../assets/my_user.png')}
+       property='lastname'
+       onChangeText={onChange}
+       value={lastname}
+      />
+      <CustomTextInput1
+       placeholder='Direccion'
+       keyboardType='default'
+       image={require('../../../../assets/direccion.png')}
+       property='direction'
+       onChangeText={onChange}
+       value={direction}
+      />
+       <CustomTextInput1
+       placeholder='Correo electronico'
+       keyboardType='email-address'
+       image={require('../../../../assets/correo-electronico.png')}
+       property='email'
+       onChangeText={onChange}
+       value={email}
+      />
+      <CustomTextInput1
+       placeholder='Celular'
+       keyboardType='numeric'
+       image={require('../../../../assets/phonepurple.png')}
+       property='phone'
+       onChangeText={onChange}
+       value={phone}
+      />
+      <CustomTextInput1
+       placeholder='Contraseña'
+       keyboardType='default'
+       image={require('../../../../assets/candado.png')}
+       property='password'
+       onChangeText={onChange}
+       value={password}
+       secureTextEntry={true}
+      />
+       <CustomTextInput1
+       placeholder='Confirmar contraseña'
+       keyboardType='default'
+       image={require('../../../../assets/confirm_password.png')}
+       property='confirmPassword'
+       onChangeText={onChange}
+       value={confirmPassword}
+       secureTextEntry={true}
+      />
+      
 
 
-        <View style={styles.formInput}>
-          <Image
-            style={styles.formIcon}
-            source={require('../../../../assets/correo-electronico.png')} />
-          <TextInput
-            style={styles.formtextInput}
-            placeholder='Correo electronico'
-            keyboardType='email-address'
-          />
-
-        </View>
-        <View style={styles.formInput}>
-          <Image
-            style={styles.formIcon}
-            source={require('../../../../assets/phonepurple.png')} />
-          <TextInput
-            style={styles.formtextInput}
-            placeholder='Celular'
-            keyboardType='numeric'
-          />
-
-        </View>
-        <View style={styles.formInput}>
-          <Image
-            style={styles.formIcon}
-            source={require('../../../../assets/candado.png')} />
-          <TextInput
-            style={styles.formtextInput}
-            placeholder='Contrasenia'
-            keyboardType='default'
-            secureTextEntry={true}
-          />
-
-        </View>
+        
+       
+        {/*ejemplo sin componente personalizado*/}
         <View style={styles.formInput}>
           <Image
             style={styles.formIcon}
@@ -107,7 +112,8 @@ export const RegisterScreen = () => {
         <View style={{ marginTop: 30 }}>
 
           <RoundedButton text='Confirmar'
-            onPress={() => ToastAndroid.show('Hola', ToastAndroid.LONG)}
+            //onPress={() => ToastAndroid.show('Hola', ToastAndroid.LONG)}
+            onPress={()=>register()}
           />
 
 
